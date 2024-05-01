@@ -36,8 +36,8 @@ export async function addNewHour(formData:FormData){
   try{
     await Prisma.hour.create({
       data: {
-        day: date,
-        hour: hour
+        day: date as string,
+        hour: hour as string
       }
     });
     
