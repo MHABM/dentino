@@ -179,7 +179,6 @@ const Right = ({ times }) => {
       </div>
       <div className="location">
         <h5 className="locationTop">آدرس مطب</h5>
-        {/* <Image src={'/images/map.jpg'} width={400} height={200} alt="" /> */}
         <SimpleMap />
         <div className="locationText">تهران، میدان فاطمی،ابتدای شهیدگمنام، پلاک ۳، طبقه دوم، واحد ۵</div>
         <div className="locationTime">
