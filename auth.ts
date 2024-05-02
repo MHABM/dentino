@@ -6,9 +6,6 @@ import type { User } from '@/app/lib/definitions';
 import bcrypt from 'bcrypt';
 import Prisma from './app/lib/prisma';
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
  
 async function getUser(email: string): Promise<User | undefined | null> {
   try {
@@ -27,7 +24,7 @@ async function getUser(email: string): Promise<User | undefined | null> {
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   secret: process.env.Auth_SECRET,
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(Prisma),
   session: { strategy: "jwt" },
   providers: [
     Credentials({
