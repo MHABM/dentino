@@ -7,27 +7,50 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id      String  @id @default(uuid())
-  name    String
-  email   String  @unique
-  password String
-}
-
 model Hour {
-  id    String  @id @default(uuid())
-  day   String
-  hour  String
+  id   String @id @default(uuid())
+  day  String
+  hour String
+
   @@unique([day, hour])
 }
 
 model Appointment {
-  id           String    @id @default(uuid())
-  firstName    String
-  lastName     String
-  phoneNumber  String
-  day          String
-  hour         String
-  condition    String
-  created_at   DateTime  @default(now())
+  id          String   @id @default(uuid())
+  firstName   String
+  lastName    String
+  phoneNumber String
+  day         String
+  hour        String
+  condition   String
+  created_at  DateTime @default(now())
+}
+
+model User {
+  id       String    @id @default(uuid())
+  name     String
+  email    String    @unique
+  password String
+  accounts Account[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
 }
